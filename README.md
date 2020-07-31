@@ -10,3 +10,8 @@
 
 ## address
 [this page](https://itsbeenalongday.github.io/Frontend-javascript/)
+
+## local server에서 디버깅
+localhost:8887
+or
+127.0.0.1:8887

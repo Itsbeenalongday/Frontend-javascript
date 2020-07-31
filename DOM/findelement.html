@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <ul>
+            <li class="active">HTML</li>
+            <li class="active">CSS</li>
+            <li id = "active">JavaScript</li>
+        </ul>
+        <ol>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+        </ol>
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+        </ul>
+        <script>
+            // 1. 태그이름으로 element찾기
+            /*
+            var ul = document.getElementsByTagName('ul')[0]; // 두개의 ul 중 제일 처음의 ul만 고른다.
+            console.log(document.getElementsByTagName('ul'));
+            console.log(ul);
+            var lis = ul.getElementsByTagName('li'); // ul하위의 li만 적용되게
+            for(var i = 0; i<lis.length; ++i){
+                lis[i].style.color = 'red';
+            }
+            */
+
+            // 2. 클래스이름으로 element 찾기
+            /*
+            var lis = document.getElementsByClassName('active'); // class 이름이 active인 element만 
+            for(var i = 0; i<lis.length; ++i){
+                lis[i].style.color = 'red';
+            }
+            */
+
+            // 3. id이름으로 element찾기 - unique한 element이기에 하나만 조회됨
+            /*
+            var li = document.getElementById('active'); // id 이름이 active인 element만
+            li.style.color = 'green';
+            */
+
+            // 4. css의 선택자를 인자로 받아서 element찾기
+            var lis = document.querySelectorAll('li'); // 모든 li태그 리턴
+            for(var index in lis){ // property가 순회됨
+                alert(typeof index);
+                lis[index].style.color = 'red';
+            }
+            var li = document.querySelector('#active'); // id가 active인거 하나만 리턴됨
+            li.style.color = 'blue';
+        </script>
+    </body>
+</html>
