@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="kor">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <script>
+            /* 경고창이 실행되는 동안 다음 실행 코드는 멈춘다.*/
+            (()=>{
+                alert(1);
+                alert(2);
+                alert(3);
+            
+            })();
+            (()=>{
+                if(confirm('ok?')){ // boolean return
+                    alert('ok');
+                }else{
+                    alert('cancle');
+                }
+            })();
+            (() => {
+                var id;
+                if((id = prompt('id')) == "itsbeenalongday"){
+                    alert('welcome ' + id + '님');
+                }else{
+                    alert('login failure');
+                }
+            })();
+        </script>
+    </body>
+</html>

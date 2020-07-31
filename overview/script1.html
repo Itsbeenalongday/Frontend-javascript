@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="kor">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <input type="button" id="hw" value="Hello world" />
+        <!--
+            script태그내에서 jsp코드를 작성한다.
+            태그와 jsp코드를 분리
+        -->
+        <script type="text/javascript">
+            var hw = document.getElementById('hw');
+            hw.addEventListener('click', function(){
+                alert('Hello world');
+            });
+        </script>
+    </body>
+</html>

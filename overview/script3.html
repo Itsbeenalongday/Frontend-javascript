@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="kor">
+    <head>
+         <script type="text/javascript">
+         /*
+         onload는 웹페이지의 모두 읽히고, 페이지가 완성이 되었을 때
+         onload메소드가 호출된다.
+         때문에 onload가 실행되면서 여기의 코드가 하나하나 실행된다.
+         */
+            window.onload = function(){
+                var hw = document.getElementById('hw');
+                hw.addEventListener('click', function (){
+                    alert('Hello world');
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <input type="button" id="hw" value="Hello world" />
+    </body>
+</html>
