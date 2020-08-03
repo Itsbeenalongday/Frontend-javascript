@@ -3,4 +3,46 @@
 Document Object Model로 웹페이지를 자바스크립트로 제어하기 위한 객체 모델을 의미한다. 
 window 객체의 document 프로퍼티를 통해서 사용할 수 있다. Window 객체가 창을 의미한다면 
 Document 객체는 윈도우에 로드된 문서를 의미한다고 할 수 있다. 
-문서를 제어하는 방법에 대한 내용을 알아보자 
+문서를 제어하는 방법에 대한 내용을 알아보자
+
+# DOM Tree
+
+![DOMTREE](https://s3.ap-northeast-2.amazonaws.com/opentutorials-user-file/module/904/2234.png)
+
+# jQuery Object
+
+```javascript
+    /*
+    jquery 함수 $()의 리턴결과가 jquery 객체이다.
+
+    jQuery 객체의 가장 중요한 특성은 암시적인 반복을 수행한다는 것이다. 
+    DOM과 다르게 jQuery 객체의 메소드를 실행하면 선택된 엘리먼트 전체에 대해서 동시에 작업이 처리된다.
+    암시적 반복은 값을 설정할 때만 동작한다. 값을 가져올 때는 선택된 엘리먼트 중 첫번째에 대한 값만을 반환한다.
+
+    jQuery의 많은 메소드 들이 
+    설정방식 - 메소드이름(속성,설정값);
+    조회방식 - 메소드이름(속성);
+    */    
+    // 예시
+    // 설정
+    $('li').css('color', 'red');
+    // 조회
+    $('li').css('color');
+
+    var lis = $('li');
+    for(var i=0; i<lis.length; ++i){
+        console.log(lis[i].constructor); // 각각의 li태그들이 튀어나옴, DOM객체
+        lis[i].css('color', 'red'); // error - 왜? dom객체이기 때문에 css라는 메소드가 없음
+        $(lis[i]).css('color','red'); // 이제 jquery객체가 되기 때문에 위 코드의 에러가 사라짐
+    }
+
+    // map
+    var li = $('li');
+    li.map(function(index,elem){ // map은 인자로 받은 함수에 index와 dom객체를 넘겨주면서 순회한다.
+        console.log(index, elem);
+        $(elem).css('color', 'red');
+    });
+```
+
+# jQuery API
+[jQuery API](https://api.jquery.com)

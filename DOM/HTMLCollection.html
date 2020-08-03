@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <body>
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li id="active">JavaScript</li>
+    </ul>
+    <script>
+        console.group('before'); // groupEnd까지 log를 모아서 출력 로그를 그룹핑
+        var lis = document.getElementsByTagName('li'); // HTMLCollenction - 유사배열, 배열을 다루듯이 다룰 수 있다.
+        for(var i = 0; i < lis.length; i++){
+            console.log(lis[i]);
+        }
+        console.groupEnd();
+        console.group('after');
+        lis[1].parentNode.removeChild(lis[1]); // element 삭제, 제거 순간 바로 반영
+        for(var i = 0; i < lis.length; i++){
+            console.log(lis[i]);
+        }
+        console.groupEnd();
+    </script>
+    </body>
+</html>
