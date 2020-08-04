@@ -30,18 +30,18 @@ Document 객체는 윈도우에 로드된 문서를 의미한다고 할 수 있�
 ```
 
 + 태그이름 이용
-  ```javascript
-          var ul = document.getElementsByTagName('ul')[0]; // 두개의 ul 중 제일 처음의 ul만 고른다.
+```javascript
+            var ul = document.getElementsByTagName('ul')[0]; // 두개의 ul 중 제일 처음의 ul만 고른다.
             console.log(document.getElementsByTagName('ul'));
             console.log(ul);
             var lis = ul.getElementsByTagName('li'); // ul하위의 li만 적용되게
             for(var i = 0; i<lis.length; ++i){
                 lis[i].style.color = 'red';
             }
-  ```
+```
 + 클래스이름 이용
 ```javascript
-            var lis = document.getElementsByClassName('active'); // class 이름이 active인         element만 
+            var lis = document.getElementsByClassName('active'); // class 이름이 active인 element만 
             for(var i = 0; i<lis.length; ++i){
                 lis[i].style.color = 'red';
             }
@@ -142,11 +142,10 @@ jQuery의 간단한 사용법
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 </body>
 </html>
-
 ```
 
 # HTMLElement
-    ```html
+```html
     <ul>
     <li>HTML</li>
     <li>CSS</li>
@@ -180,7 +179,7 @@ jQuery의 간단한 사용법
     var target = document.getElementById('button');
     console.log(target.constructor.name); // HTMLInputElement
 </script>
-    ```
+```
 # HTMLCollection
 ```html
     <ul>
