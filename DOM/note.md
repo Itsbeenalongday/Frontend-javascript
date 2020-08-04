@@ -9,6 +9,200 @@ Document 객체는 윈도우에 로드된 문서를 의미한다고 할 수 있�
 
 ![DOMTREE](https://s3.ap-northeast-2.amazonaws.com/opentutorials-user-file/module/904/2234.png)
 
+# 제어할 대상 찾기
+
+```html
+        <ul>
+            <li class="active">HTML</li>
+            <li class="active">CSS</li>
+            <li id = "active">JavaScript</li>
+        </ul>
+        <ol>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+        </ol>
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+        </ul>
+```
+
++ 태그이름 이용
+  ```javascript
+          var ul = document.getElementsByTagName('ul')[0]; // 두개의 ul 중 제일 처음의 ul만 고른다.
+            console.log(document.getElementsByTagName('ul'));
+            console.log(ul);
+            var lis = ul.getElementsByTagName('li'); // ul하위의 li만 적용되게
+            for(var i = 0; i<lis.length; ++i){
+                lis[i].style.color = 'red';
+            }
+  ```
++ 클래스이름 이용
+```javascript
+            var lis = document.getElementsByClassName('active'); // class 이름이 active인         element만 
+            for(var i = 0; i<lis.length; ++i){
+                lis[i].style.color = 'red';
+            }
+```
++ 아이디이름 이용 - document에서 unique하기에 하나만 조회됨
+```javascript
+            var li = document.getElementById('active'); // id 이름이 active인 element만
+            li.style.color = 'green';
+```
++ css 선택 이용
+```javascript
+            var lis = document.querySelectorAll('li'); // 모든 li태그 리턴
+            for(var index in lis){ // property가 순회됨
+                alert(typeof index);
+                lis[index].style.color = 'red';
+            }
+            var li = document.querySelector('#active'); // id가 active인거 하나만 리턴됨
+            li.style.color = 'blue';
+```
+
+# jQuery Tutorial
+jQuery의 간단한 사용법
+```html
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> <!-- #include 같은 역할 -->
+    <script>
+    jQuery( document ).ready(function( $ ) {
+        // body의 바로 앞에 (prepend) 추가한다.
+      $('body').prepend('<h1>Hello world</h1>');
+    });
+    </script>
+```
+
+```html
+<!-- 
+    $는 함수 - jqeury function
+    인자로는 css가 선택자가 주로 들어온다.
+    jquery 객체를 리턴
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    #demo{width:200px;float: left; margin-top:120px;}
+    #execute{float: left; margin:0; font-size:0.9em;}
+    #execute{padding-left: 5px}
+    #execute li{list-style: none}
+    #execute pre{border:1px solid gray; padding:10px;}
+    </style>
+</head>
+<body>
+<ul id="demo">
+    <li class="active">HTML</li>
+    <li id="active">CSS</li>
+    <li class="active">JavaScript</li>
+</ul>
+<ul id="execute">
+    <li>
+        <pre>
+            var lis = document.getElementsByTagName('li');
+            for(var i=0; i&lt;lis.length; i++){
+                lis[i].style.color='red';   
+        </pre>
+        <pre>
+            $('li').css('color', 'red')     
+        </pre>
+        <input type="button" value="execute" onclick="$('li').css('color', 'red')" />
+    </li>
+    <li>
+        <pre>
+            var lis = document.getElementsByClassName('active');
+                for(var i=0; i &lt; lis.length; i++){
+                    lis[i].style.color='red';   
+                }
+        </pre>
+        <pre>
+            $('.active').css('color', 'red')
+        </pre>
+        <input type="button" value="execute" onclick="$('.active').css('color', 'red')" />
+    </li>
+    <li>
+        <pre>
+            var li = document.getElementById('active');
+            li.style.color='red';
+            li.style.textDecoration='underline';
+        </pre>
+        <pre>
+            $('$active').css('color', 'red').css('textDecoration', 'underline');
+        </pre>
+        <!--
+            $('#active').css('color', 'red').css('textDecoration', 'underline')
+            jquery 객체 리턴 -> css메소드가 객체 리턴 -> css메소드가 객체 리턴
+            chaining(연속적으로 메소드 호출해서 서로다른 결과를 합쳐서 최종 객체를 만든다.) 
+        -->
+        <input type="button" value="execute" onclick="$('#active').css('color', 'red').css('textDecoration', 'underline')" />
+    </li>
+</ul>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+</body>
+</html>
+
+```
+
+# HTMLElement
+    ```html
+    <ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li id="active">JavaScript</li>
+</ul>
+<script>
+    /*
+        HTMLLIElement - 단수개의 객체
+        HTMLCollection - 복수개의 객체
+    */
+    var li = document.getElementById('active');
+    console.log(li.constructor.name); // 객체이름을 조회
+    var lis = document.getElementsByTagName('li');
+    console.log(lis.constructor.name);
+
+    /*
+        HTML + 태그이름 + Element
+
+        - 공통속성도 있고(id, class etc..) - 상속
+        - 각 태그에 걸맞는 속성도 있다
+
+        태그들의 자세한 속성을 보기위해서 아래의 링크를 참조
+        https://www.w3.org/TR/2003/REC-DOM-Level-2-HTML-20030109/html.html#ID-74680021
+    */
+    var target = document.getElementById('list');
+    console.log(target.constructor.name); //HTMLLIElement
+ 
+    var target = document.getElementById('anchor');
+    console.log(target.constructor.name); //HTMLAnchorElement
+ 
+    var target = document.getElementById('button');
+    console.log(target.constructor.name); // HTMLInputElement
+</script>
+    ```
+# HTMLCollection
+```html
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li id="active">JavaScript</li>
+    </ul>
+    <script>
+        console.group('before'); // groupEnd까지 log를 모아서 출력 로그를 그룹핑
+        var lis = document.getElementsByTagName('li'); // HTMLCollenction - 유사배열, 배열을 다루듯이 다룰 수 있다.
+        for(var i = 0; i < lis.length; i++){
+            console.log(lis[i]);
+        }
+        console.groupEnd();
+        console.group('after');
+        lis[1].parentNode.removeChild(lis[1]); // element 삭제, 제거 순간 바로 반영
+        for(var i = 0; i < lis.length; i++){
+            console.log(lis[i]);
+        }
+        console.groupEnd();
+    </script>
+```
 # jQuery Object
 
 ```javascript
@@ -268,7 +462,9 @@ Elment.getElementBy*
 
 + 관계
   - 엘리먼트는 서로 부모, 자식, 혹은 형제자매 관계로 연결되어 있다. 각각의 Node가 다른 Node와 연결된 정보를 보여주는 API를 통해서 문서를 프로그래밍적으로 탐색할 수 있다.
+  - 주의할 점은 태그들 사이의 `\n`과 `' '`들도 text객체로 자식에 포함됨 무조건 태그를 가르키는게 아니라는 점
   - Node.childNodes
+  - Node.parentNode
   - Node.firstChild
   - Node.lastChild
   - Node.nextSibling
@@ -279,7 +475,12 @@ Elment.getElementBy*
 + 종류
   - Node 객체는 모든 구성요소를 대표하는 객체이기 때문에 각각의 구성요소가 어떤 카테고리에 속하는 것인지를 알려주는 식별자를 제공한다. 
   - Node.nodeType
-  - Node.nodeName
+  ```javascript
+        for(let name in Node){
+            console.log(name, Node[name]); // type별로 숫자 식별자가 있음
+        }
+  ```
+  - Node.nodeName 
 
 + 값
   - Node 객체의 값을 제공하는 API
