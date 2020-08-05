@@ -565,7 +565,8 @@ Elment.getElementBy*
 
 + jQuery로 노드 변경하기
 
-    - 추가
+- 추가
+
 ![](https://s3.ap-northeast-2.amazonaws.com/opentutorials-user-file/module/904/2278.png)
 
 ```html
@@ -586,8 +587,8 @@ Elment.getElementBy*
     </script>
 ```
 
-    - 제거
-        + 제거와 관련된 API는 remove와 empty가 있다. remove는 선택된 엘리먼트를 제거하는 것이고 empty는 선택된 엘리먼트의 텍스트 노드를 제거하는 것이다.
+- 제거
+    + 제거와 관련된 API는 remove와 empty가 있다. remove는 선택된 엘리먼트를 제거하는 것이고 empty는 선택된 엘리먼트의 텍스트 노드를 제거하는 것이다.
 ```html
 <div class="target" id="target1">
     target 1
@@ -611,8 +612,8 @@ Elment.getElementBy*
 
 ```
 
-    - 교체
-    - replaceWith(), replaceAll()
+- 교체
+- replaceWith(), replaceAll()
 
 ```html
 <div class="target" id="target1">
@@ -637,8 +638,8 @@ Elment.getElementBy*
 </script>
 ```
 
-    - 복사
-    - clone()
+- 복사
+- clone()
 
 ```html
     <div class="target" id="target1">
@@ -666,4 +667,82 @@ Elment.getElementBy*
 
 + 문자열로 노드변경하기
 
+    - innerHTML
+    - 태그내의 코드블록
 
+  ```html
+    <ul id="target">
+    <li>HTML</li>
+    <li>CSS</li>
+    </ul>
+    <input type="button" onclick="get();" value="get" />
+    <input type="button" onclick="set();" value="set" />
+    <script>
+        function get(){
+            var target = document.getElementById('target');
+            alert(target.innerHTML);
+        }
+        function set(){
+            var target = document.getElementById('target');
+            target.innerHTML = "<li>JavaScript Core</li><li>BOM</li><li>DOM</li>";
+        }
+    </script>
+  ```
+    + outerHTML
+    + 자기자신을 포함한 코드블록
+
+```HTML
+    <ul id="target">
+        <li>HTML</li>
+        <li>CSS</li>
+    </ul>
+    <input type="button" onclick="get();" value="get" />
+    <input type="button" onclick="set();" value="set" />
+    <script>
+        function get(){
+            var target = document.getElementById('target');
+            alert(target.outerHTML);
+        }
+        function set(){
+            var target = document.getElementById('target');
+            target.outerHTML = "<ol><li>JavaScript Core</li><li>BOM</li><li>DOM</li></ol>";
+        }
+    </script>
+```
+
+  + innerText, outerText
+  + 태그제외 내용만
+
+  + insertAdjacentHTML
+  + 위치를 정확히 지정하여 넣기
+  ```HTML
+<!-- BEFOREBEGIN-->
+<ul id="target"> <!-- BEGIN -->
+<!-- AFTERBEGIN-->
+    <li>CSS</li>
+<!-- BEFOREEND-->
+</ul> <!-- END -->
+<!-- AFTEREND-->
+<input type="button" onclick="beforebegin();" value="beforebegin" />
+<input type="button" onclick="afterbegin();" value="afterbegin" />
+<input type="button" onclick="beforeend();" value="beforeend" />
+<input type="button" onclick="afterend();" value="afterend" />
+<script>
+    function beforebegin(){
+        var target = document.getElementById('target');
+        target.insertAdjacentHTML('beforebegin','<h1>Client Side</h1>');
+    }
+    function afterbegin(){
+        var target = document.getElementById('target');
+        target.insertAdjacentHTML('afterbegin','<li>HTML</li>');
+    }
+    function beforeend(){
+        var target = document.getElementById('target');
+        target.insertAdjacentHTML('beforeend','<li>JavaScript</li>');
+    }
+    function afterend(){
+        var target = document.getElementById('target');
+        target.insertAdjacentHTML('afterend','<h1>Server Side</h1>');
+    }
+</script>
+  ```
