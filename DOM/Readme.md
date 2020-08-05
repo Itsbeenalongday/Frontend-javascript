@@ -474,13 +474,24 @@ Elment.getElementBy*
 + 종류
   - Node 객체는 모든 구성요소를 대표하는 객체이기 때문에 각각의 구성요소가 어떤 카테고리에 속하는 것인지를 알려주는 식별자를 제공한다. 
   - Node.nodeType
-  ```javascript
+```javascript
         for(let name in Node){
             console.log(name, Node[name]); // type별로 숫자 식별자가 있음
         }
-  ```
-  - Node.nodeName 
+```
+  - Node.nodeName
 
+  - DOM Tree 탐색하며 함수 적용
+```javascript
+    function traversal(target, callback){
+        if(target.nodeType != Node.ELEMENT_NODE) return;
+        callback(target); // 인자로 전달된 함수를 호출
+        let child = target.childNodes;
+        for(let i = 0; i< child.length; ++i){
+            traversal(child[i], callback);
+        }
+    }
+```
 + 값
   - Node 객체의 값을 제공하는 API
   - Node.nodeValue
@@ -489,5 +500,170 @@ Elment.getElementBy*
 + 자식관리
     - Node 객체의 자식을 추가하는 방법에 대한 API
     - Node.appendChild()
-    - Node.removeChild()
+    - Node.insertBefore()
+```html
+    <ul id="target">
+    <li>HTML</li>
+    <li>CSS</li>
+    </ul>
+    <input type="button" onclick="callAppendChild();" value="appendChild()" />
+    <input type="button" onclick="callInsertBefore();" value="insertBefore()" />
+    <script>
+        function callAppendChild(){
+            var target = document.getElementById('target');
+            var li = document.createElement('li');
+            var text = document.createTextNode('JavaScript');
+            li.appendChild(text);
+            target.appendChild(li);
+        }
+    
+        function callInsertBefore(){
+            var target = document.getElementById('target');
+            var li = document.createElement('li');
+            var text = document.createTextNode('jQuery');
+            li.appendChild(text);
+            target.insertBefore(li, target.firstChild);
+        }
+    </script>
+```
+  - Node.removeChild()
+
+```html
+    <ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li id="target">JavaScript</li>
+    </ul>
+    <input type="button" onclick="callRemoveChild();" value="removeChild()" />
+    <script>
+        function callRemoveChild(){
+            var target = document.getElementById('target');
+            target.parentNode.removeChild(target);
+        }
+    </script>
+```
+
+  - Node.replaceChild()
+```html
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li id="target">JavaScript</li>
+    </ul>
+    <input type="button" onclick="callReplaceChild();" value="replaceChild()" />
+    <script>
+        function callReplaceChild(){
+            var a = document.createElement('a');
+            a.setAttribute('href', 'http://opentutorials.org/module/904/6701');
+            a.appendChild(document.createTextNode('Web browser JavaScript'));
+    
+            var target = document.getElementById('target');
+            target.replaceChild(a,target.firstChild); // (new child, old child)
+        }
+    </script>
+```
+
++ jQuery로 노드 변경하기
+
+    - 추가
+![](https://s3.ap-northeast-2.amazonaws.com/opentutorials-user-file/module/904/2278.png)
+
+```html
+    <div class="target">
+        content1
+    </div>
+    
+    <div class="target">
+        content2
+    </div>
+    
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        $('.target').before('<div>before</div>');
+        $('.target').after('<div>after</div>');
+        $('.target').prepend('<div>prepend</div>');
+        $('.target').append('<div>append</div>');
+    </script>
+```
+
+    - 제거
+        + 제거와 관련된 API는 remove와 empty가 있다. remove는 선택된 엘리먼트를 제거하는 것이고 empty는 선택된 엘리먼트의 텍스트 노드를 제거하는 것이다.
+```html
+<div class="target" id="target1">
+    target 1
+</div>
+ 
+<div class="target" id="target2">
+    target 2
+</div>
+ 
+<input type="button" value="remove target 1" id="btn1" />
+<input type="button" value="empty target 2" id="btn2" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('#btn1').click(function(){
+        $('#target1').remove();
+    })
+    $('#btn2').click(function(){
+        $('#target2').empty();
+    })
+</script>
+
+```
+
+    - 교체
+    - replaceWith(), replaceAll()
+
+```html
+<div class="target" id="target1">
+    target 1
+</div>
+ 
+<div class="target" id="target2">
+    target 2
+</div>
+ 
+<input type="button" value="replaceAll target 1" id="btn1" />
+<input type="button" value="replaceWith target 2" id="btn2" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('#btn1').click(function(){
+        $('<div>replaceAll</div>').replaceAll('#target1'); // target1을 repalceAll로 교체
+    })
+    $('#btn2').click(function(){
+        $('#target2').replaceWith('<div>replaceWith</div>'); // target2를 replaceWith로 교체
+    })
+    // 같은 기능이지만 제어의 대상이 앞 뒤로 오는것이 차이
+</script>
+```
+
+    - 복사
+    - clone()
+
+```html
+    <div class="target" id="target1">
+    target 1
+    </div>
+    
+    <div class="target" id="target2">
+        target 2
+    </div>
+    
+    <div id="source">source</div>
+    
+    <input type="button" value="clone replaceAll target 1" id="btn1" />
+    <input type="button" value="clone replaceWith target 2" id="btn2" />
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        $('#btn1').click(function(){
+            $('#source').clone().replaceAll('#target1');
+        })
+        $('#btn2').click(function(){
+            $('#target2').replaceWith($('#source').clone());
+        })
+    </script>
+```
+
++ 문자열로 노드변경하기
+
 
