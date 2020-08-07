@@ -1,0 +1,26 @@
+<!-- 태그사이의 문자열은 하나의 text노드 취급 -- target2의 경우 -->
+<p id="target1"><span>Hello world</span></p>
+<p id="target2">
+    <span>Hello world</span>
+</p>
+<script type ="text/javascript">
+var t1 = document.getElementById('target1');
+var t2 = document.getElementById('target2');
+
+let s = t2.firstChild;
+console.log(String(s).length);
+s = String(s).charCodeAt(s.length);
+console.log(s);
+console.log(String.fromCharCode(s));
+
+console.log(t1.firstChild.firstChild.nodeValue);
+
+try{
+    console.log(t2.firstChild.nodeValue);
+    console.log(t2.firstChild);
+} catch(e){
+    console.log(e);
+}
+console.log(t2.nextSibling.firstChild.nodeValue);
+
+</script>
