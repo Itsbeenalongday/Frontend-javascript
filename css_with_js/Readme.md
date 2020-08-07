@@ -90,3 +90,54 @@ console.log(t.offsetParent);
 + ClientHeight
 
 ## viewport
+
+![](https://s3.ap-northeast-2.amazonaws.com/opentutorials-user-file/module/904/2408.png)
+
++ getBoundingClientRect() : viewprot와의 상대적 거리요소들의 집합(viewport좌표 집합)
++ pageYoffset : 상/하 스크롤을 얼마나 내렸는지에 대한 상대적 거리
++ pageXoffset : 좌/우 스크롤을 얼마나 내렸는지에 대한 상대적 거리
+
+```html
+<style>
+    body{
+        padding:0;
+        margin:0;
+    }
+    div{
+        border:50px solid #1065e6;
+        padding:50px;
+        margin:50px;
+    }
+    #target{
+        width:100px;
+        height:2000px;
+    }
+</style>
+    <div>
+        <div id="target">
+            Coding
+        </div>
+    </div>
+ 
+<script>
+var t = document.getElementById('target');
+// setInterval함수는 지정된 시간마다 반복되게 하는 함수
+setInterval(function(){ 
+    console.log('getBoundingClientRect : ', t.getBoundingClientRect().top, 'pageYOffset:', window.pageYOffset);
+}, 1000)
+</script>
+```
+
+## 스크롤 제어
+
++ scrollTo(x좌표, y좌표);
++ scrollLeft(), scrollTop() - 원상복구
+
+## 스크린 크기 구하기
+
+```html
+<script>
+console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight:', window.innerHeight); // viewport의 크기
+console.log('screen.width:', screen.width, 'screen.height:', screen.height); // 모니터 해상도
+</script>
+```
