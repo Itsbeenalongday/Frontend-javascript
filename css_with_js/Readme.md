@@ -80,10 +80,6 @@ console.log(t.offsetParent);
     => offsetParent
 ```
 
-@caution
-만약 부모 중 CSS position의 값이 static인 td, th, table 엘리먼트가 있다면 이 엘리먼트가 offsetParent가 된다. 
-
-
 ## 테두리 제외 태그의 넓이, 높이
 
 + ClientWidth
