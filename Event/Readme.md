@@ -3,6 +3,7 @@
 ## event란?
 
 브라우저에서 user가 일으킨 특정한 사건 - 클릭, 텍스트입력, 스크롤 etc...
+<hr/>
 
 ## terminology
 
@@ -10,6 +11,7 @@
 + event type - 발생한 이벤트의 종류
     - [event type](https://developer.mozilla.org/en-US/docs/Web/Reference/Events)
 + event handler - event발생 시, 실행되야하는 코드들
+<hr/>
 
 ## event 등록
 
@@ -34,6 +36,7 @@
 + this가 함수의 인자로 왔다는 것은 무슨의미일까?
 
 > 함수가 속해있는 객체를 의미, 즉 위의 코드에서는 input태그를 의미하고 그것의 value를 참조했으므로 출력값은 Hello world, button이 출력되게 된다.
+
 
 2. property listener
 
@@ -103,6 +106,7 @@ ie8 이하 버전에서는 이벤트 객체를 핸들러의 인자가 아니라 
     t2.addEventListener('click', btn_listener);
 </script>
 ```
+<hr/>
 
 ## 이벤트전파(버블링, 캡쳐링)
 
@@ -228,3 +232,71 @@ INPUT INPUT target
 INPUT FIELDSET bubbling
 INPUT BODY bubbling
 ```
+<hr/>
+
+## 이벤트 기본동작 취소
+
+> 기본동작
+
+웹브라우저의 구성요소들은 각각 기본적인 동작 방법을 가지고 있다.
+
++ 텍스트 필드에 포커스를 준 상태에서 키보드를 입력하면(사용자의 이벤트) 텍스트가 입력된다.
++ 폼에서 submit 버튼을 누르면(사용자의 이벤트) 데이터가 전송된다.
++ a 태그를 클릭(사용자의 이벤트)하면 href 속성의 URL로 이동한다.
+
+이러한 기본적인 동작들을 기본 이벤트라고 하는데 사용자가 만든 이벤트를 이용해서 이러한 기본 동작을 취소할 수 있다.
+
+1. inline방식에서 기본동작 취소
+
+> 핸들러의 리턴값을 false로 설정한다.
+
+```html
+<p>
+    <label>prevent event on</label><input id="prevent" type="checkbox" name="eventprevent" value="on" /> <!-- 체크박스를 통해 true false 상태를 만들 수 있다. -->
+</p>
+<p>
+    <a href="http://opentutorials.org" onclick="if(document.getElementById('prevent').checked) return false;">opentutorials</a>
+</p>
+<p>
+    <form action="http://opentutorials.org" onsubmit="if(document.getElementById('prevent').checked) return false;">
+            <input type="submit" /> <!-- 누르면 form 태그의 action에서 지정한 url로 데이터를 전송하고 제출 시 이벤트 발생하게함 -->
+    </form>
+</p>
+```
+
+2. property 방식
+
+> 핸들러의 리턴값을 false로 설정한다.
+
+```javascript
+    document.querySelector('a').onclick = function(event){
+         if(document.getElementById('prevent').checked)
+             return false;
+    };
+     
+    document.querySelector('form').onclick = function(event){
+        if(document.getElementById('prevent').checked)
+            return false;
+    };
+
+```
+
+3. addEventListener
+
+> 핸들러 함수에서 event.preventDefault();를 호출
+
+```javascript
+document.querySelector('a').addEventListener('click', function(event){
+    if(document.getElementById('prevent').checked)
+        event.preventDefault();
+});
+ 
+document.querySelector('form').addEventListener('submit', function(event){
+    if(document.getElementById('prevent').checked)
+        event.preventDefault();
+});
+```
+<hr/>
+
+## 주요 이벤트 타입
+

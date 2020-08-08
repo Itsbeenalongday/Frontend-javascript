@@ -11,8 +11,7 @@ echo "#                                          #"
 echo "#                                          #"
 echo "############################################"
 echo "\n"
-echo "start pull"
-git pull
+echo "start pull"; git pull
 echo "please enter a commit message"
 read line
 git add .
