@@ -17,8 +17,11 @@ git pull
 echo -e "\n"
 echo -n "please enter a commit message >> "
 read line
+echo -e "\n"
 git add .
+echo -e "\n"
 git commit -am "$line"
+echo -e "\n"
 git push
 echo -e "\n"
 echo "*** Pushing ended successfully ***"
