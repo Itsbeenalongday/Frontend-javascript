@@ -11,11 +11,14 @@ echo "#                                          #"
 echo "#                                          #"
 echo "############################################"
 echo -e "\n"
-echo "*** start pull ***"; git pull
+echo "*** start pull ***";
+echo -e "\n"
+git pull
 echo -e "\n"
 echo -n "please enter a commit message >> "
 read line
 git add .
 git commit -am "$line"
 git push
-echo "Pushing ended successfully"
+echo -e "\n"
+echo "*** Pushing ended successfully ***"
