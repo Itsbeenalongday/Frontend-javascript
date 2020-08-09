@@ -1,8 +1,16 @@
-<p id="result"></p>
-<input id="target" type="name" />
+<input type="text" id="target"></textarea>
+<input id="remove"  type="button" value="remove" />
+<p id="status"></p>
+<script src="./jquery.js"></script>
 <script>
-var t = document.getElementById('target');
-t.addEventListener('change', function(event){
-    document.getElementById('result').innerHTML=event.target.value;
-});
+  var handler = function(e){
+    $('#status').text(e.type+Math.random());
+  };
+  $('#target').on('focus blur', handler)
+  $('#target').on('focus', (e)=>{
+      console.log(e.type);
+  });
+  $('#remove').on('click' , function(e){
+    $('#target').off('focus',handler); // focus발생 시 동작하는 이벤트 중 이벤트 핸들러가 handler인 이벤트만 삭제
+  })
 </script>

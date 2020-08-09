@@ -344,3 +344,345 @@ foucs, blur모두 다음 태그를 제외한 모든 태그에서 발생한다.
 ```html
 <base>, <bdo>, <br>, <head>, <html>, <iframe>, <meta>, <param>, <script>, <style>, <title>
 ```
+
+2. 문서로드
+
+이전에 window객체를 공부할 때, head태그에 script태그가 body태그의 어떤 element를 조작하는 html코드를 봤었다
+```html
+<html>
+    <head>
+        <script>
+        var t = document.getElementById('target');
+        console.log(t);
+        </script>
+    </head>
+    <body>
+        <p id="target">Hello</p>
+    </body>
+</html>
+```
+html은 순차적으로 실행되기 때문에 head태그 에서 script태그가 실행되고 있는 시점에서는 아직 밑까지 안내려갔기에 target이라는 요소는 알 수가 없다.
+이를 해결하기 위한 것으로 window객체의 onload메소드를 이용하면 된다고 했었는데, 단점은 시간이 오래걸리는 이미지 다운로드 등이 모두 끝나고 실행되기때문에
+작성한 코드가 지연될 가능성이 있다. 해서 다른 방법이 또 하나 있는데 그것이 DomContentLoaded 이벤트이다.
+DomContentLoaded이벤트는 초기 HTML 문서를 완전히 불러오고 분석했을 때 발생합니다.(DOM Tree 구축 완료 시점), 실행 전 오브젝트파일완성 단계라고 생각하면 편할 듯 
+스타일 시트, 이미지, 하위 프레임의 로딩은 기다리지 않습니다. -> 실행단계 css로 위치조정하고 꾸미고 렌더링하고 다운로드 받고 등등
+```html
+<html>
+    <head>
+        <script>
+            window.addEventListener('load', function(){
+                console.log('load');
+            })
+            window.addEventListener('DOMContentLoaded', function(){
+                console.log('DOMContentLoaded');
+            })
+        </script>
+    </head>
+    <body>
+        <p id="target">Hello</p>
+    </body>
+</html>
+```
+
+3. 마우스
+
+마우스 관련 이벤트는 상당히 많다.
+좌클릭, 우클릭, 더블클릭, 이동, 스크롤 등등
+키보드와 함께 사용하는 경우 쉬프트누르고 드래그 등등
+
++ 주요 이벤트 타입
+
+click
+클릭했을 때 발생하는 이벤트. 
+dblclick
+더블클릭을 했을 때 발생하는 이벤트
+mousedown
+마우스를 누를 때 발생
+mouseup
+마우스버튼을 땔 때 발생
+mousemove
+마우스를 움직일 때
+mouseover
+마우스가 엘리먼트에 진입할 때 발생
+mouseout
+마우스가 엘리먼트에서 빠져나갈 때 발생
+contextmenu
+컨텍스트 메뉴가 실행될 때 발생
+
++ 키보드와 조합
+
+마우스 이벤트가 호출될 때 특수키(alt, ctrl, shift)가 눌려진 상태를 감지해야 한다면 이벤트 객체의 프로퍼티를 사용한다. 이 때 사용하는 프로퍼티는 아래와 같다.
+
+event.shiftKey
+event.altKey
+event.ctrlKey
+
++ 마우스 포인터의 위치
+
+event.clientX
+event.clientY
+
+```html
+<html>
+    <head>
+        <style>
+            body{
+                background-color: black;
+                color:white;
+            }
+            #target{
+                width:200px;
+                height:200px;
+                background-color: green;
+                margin:10px;
+            }
+            table{
+                border-collapse: collapse;
+                margin:10px;
+                float: left;
+                width:200px;
+            }
+            td, th{
+                padding:10px;
+                border:1px solid gray;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="target">
+ 
+        </div>
+        <table>
+            <tr>
+                <th>event type</th>
+                <th>info</th>
+            </tr>
+            <tr>
+                <td>click</td>
+                <td id="elmclick"></td>
+            </tr> 
+            <tr>
+                <td>dblclick</td>
+                <td id="elmdblclick"></td>
+            </tr>
+            <tr>
+                <td>mousedown</td>
+                <td id="elmmousedown"></td>
+            </tr>         
+            <tr>
+                <td>mouseup</td>
+                <td id="elmmouseup"></td>
+            </tr>         
+            <tr>
+                <td>mousemove</td>
+                <td id="elmmousemove"></td>
+            </tr>         
+            <tr>
+                <td>mouseover</td>
+                <td id="elmmouseover"></td>
+            </tr>         
+            <tr>
+                <td>mouseout</td>
+                <td id="elmmouseout"></td>
+            </tr>
+            <tr>
+                <td>contextmenu</td>
+                <td id="elmcontextmenu"></td>
+            </tr>         
+        </table>
+        <table>
+            <tr>
+                <th>key</th>
+                <th>info</th>
+            </tr>
+            <tr>
+                <td>event.altKey</td>
+                <td id="elmaltkey"></td>
+            </tr>
+            <tr>
+                <td>event.ctrlKey</td>
+                <td id="elmctrlkey"></td>
+            </tr>
+            <tr>
+                <td>event.shiftKey</td>
+                <td id="elmshiftKey"></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>position</th>
+                <th>info</th>
+            </tr>
+            <tr>
+                <td>event.clientX</td>
+                <td id="elemclientx"></td>
+            </tr>
+            <tr>
+                <td>event.clientY</td>
+                <td id="elemclienty"></td>
+            </tr>
+        </table>
+        <script>
+        var t = document.getElementById('target');
+        function handler(event){
+            var info = document.getElementById('elm'+event.type);
+            var time = new Date();
+            var timestr = time.getMilliseconds();
+            info.innerHTML = (timestr);
+            if(event.altKey){
+                document.getElementById('elmaltkey').innerHTML = timestr;
+            }
+            if(event.ctrlKey){
+                document.getElementById('elmctrlkey').innerHTML = timestr;
+            }
+            if(event.shiftKey){
+                document.getElementById('elmshiftKey').innerHTML = timestr;
+            }
+            document.getElementById('elemclientx').innerHTML = event.clientX;
+            document.getElementById('elemclienty').innerHTML = event.clientY;
+        }
+        t.addEventListener('click', handler);
+        t.addEventListener('dblclick', handler);
+        t.addEventListener('mousedown', handler);
+        t.addEventListener('mouseup', handler);
+        t.addEventListener('mousemove', handler);
+        t.addEventListener('mouseover', handler);
+        t.addEventListener('mouseout', handler);
+        t.addEventListener('contextmenu', handler);
+        </script>
+    </body>
+</html>
+```
+
+## jQuery 이벤트
+
+on(); - jQuery에서 가장 중요한 이벤트 API
+
+```javascript
+.on( events [, selector ] [, data ], handler(eventObject) )
+```
++ params
+    + event : 등록하고자 하는 이벤트 타입을 지정한다. (예: "click")
+    + selector : 이벤트가 설치된 엘리먼트의 하위 엘리먼트를 이벤트 대상으로 필터링함
+    + data : 이벤트가 실행될 때 핸들러로 전달될 데이터를 설정함
+    + handler : 이벤트 핸들러 함수
+
+```html
+<ul>
+    <li><a href="#">HTML</a></li>
+    <li><a href="#">CSS</a></li>
+    <li><a href="#">JavaScript</a></li>
+</ul>
+<script>
+    $('ul').on('click','a, li', function(event){
+        console.log(this.tagName);
+    })
+</script>
+```
+
++ late binding
+jQuery는 존재하지 않는 엘리먼트에도 이벤트를 등록할 수 있는 기능
+
+```html
+<script>
+    $('ul').on('click','a, li', function(event){ // 이 시점에서는 ul태그가 아직 안나왔기에 존재를 알 수 없다.
+        console.log(this.tagName);
+    })
+</script>
+<ul>
+    <li><a href="#">HTML</a></li>
+    <li><a href="#">CSS</a></li>
+    <li><a href="#">JavaScript</a></li>
+</ul>
+```
+
+```html
+<script>
+    $('body').on('click','a, li', function(event){ // body태그는 위에서 나왔기에 존재를 알 수 있고 body내의 모든 a,li태그에 이벤트를 설치할 수 있다.
+        console.log(this.tagName);
+    })
+</script>
+<ul>
+    <li><a href="#">HTML</a></li>
+    <li><a href="#">CSS</a></li>
+    <li><a href="#">JavaScript</a></li>
+</ul>
+```
+
++ 여러개의 이벤트에 같은 핸들러 등록하기
+
+1) 방법1
+```html
+<input type="text" id="target" />
+<p id="status"></p>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('#target').on('focus blur', function(e){ // 첫 번째 인자로 여러개의 이벤트 넘기기
+        $('#status').html(e.type);
+    })
+</script>
+```
+2) 방법2
+```html
+<input type="text" id="target" />
+<p id="status"></p>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('#target').on( // on의 인자로 객체를 만들어서 넘기기
+        {
+            'focus' : handler1
+            'blur' : handler2
+        }
+    )
+</script>
+```
+3) 방법3
+```html
+<input type="text" id="target" />
+<p id="status"></p>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('#target').on('focus',handler1).on('blur',handler2) // chaining 활용
+</script>
+```
+
++ 이벤트 제거
+
+on이 있다면 off가 있다.
+
+```html
+<input type="text" id="target"></textarea>
+<input id="remove"  type="button" value="remove" />
+<p id="status"></p>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+  var handler = function(e){
+    $('#status').text(e.type+Math.random());
+  };
+  $('#target').on('focus blur', handler)
+  $('#remove').on('click' , function(e){
+    $('#target').off('focus'); // focus발생시, 일어나는 이벤트 모두 삭제
+  })
+</script>
+```
+
+이벤트 필터링하여 삭제
+
+```html
+<input type="text" id="target"></textarea>
+<input id="remove"  type="button" value="remove" />
+<p id="status"></p>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+  var handler = function(e){
+    $('#status').text(e.type+Math.random());
+  };
+  $('#target').on('focus blur', handler)
+  $('#target').on('focus', (e)=>{
+      console.log(e.type);
+  });
+  $('#remove').on('click' , function(e){
+    $('#target').off('focus',handler); // focus발생 시 동작하는 이벤트 중 이벤트 핸들러가 handler인 이벤트만 삭제
+  })
+</script>
+```
