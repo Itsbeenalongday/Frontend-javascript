@@ -300,3 +300,47 @@ document.querySelector('form').addEventListener('submit', function(event){
 
 ## 주요 이벤트 타입
 
+1. 폼
+
+1) submit 
+- 사용자가 입력한 정보를 서버로 전송
+
+```html
+<form id="target" action="result.html">
+    <label for="name">name</label> <input id="name" type="name" />
+    <input type="submit" />
+</form>
+<script>
+var t = document.getElementById('target');
+t.addEventListener('submit', function(event){
+    if(document.getElementById('name').value.length === 0){
+        alert('Name 필드의 값이 누락 되었습니다');
+        event.preventDefault();
+    }
+});
+</script>
+
+```
+2) change 
+- 폼 컨트롤의 값이 바뀌고 그 객체(입력창, 체크박스 etc..)를 빠져나왔을 때(엔터치거나 해당 객체가 아닌 다른 곳을 클릭하거나..) 발생하는 이벤트
+- input(text,radio,checkbox), textarea, select 태그에 적용된다.
+```html
+<p id="result"></p>
+<input id="target" type="name" />
+<script>
+var t = document.getElementById('target');
+t.addEventListener('change', function(event){
+    document.getElementById('result').innerHTML=event.target.value;
+});
+</script>
+```
+3) focus
+- 이벤트타겟을 동작시키려고 해당 객체에 포커스를 맞추는 행위 - ex) 입력창에 입력을 하기위해 클릭하는 행위
+
+4) blur
+- 이벤트를 일으키기 위해 어떤 동작을 취하고 빠져나오는 것이 - ex) 입력이 끝나고 제출을 위해 다른곳을 클릭하거나 엔터를 치는 행위
+
+foucs, blur모두 다음 태그를 제외한 모든 태그에서 발생한다. 
+```html
+<base>, <bdo>, <br>, <head>, <html>, <iframe>, <meta>, <param>, <script>, <style>, <title>
+```
