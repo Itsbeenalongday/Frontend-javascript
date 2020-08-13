@@ -6,7 +6,9 @@
 + __jQuery__
 
 ## Log
-> started at 2020-07-29 wends
+> started at 2020-07-29
+
+> finished at 2020-08-13
 
 ## Architecture
 
