@@ -309,3 +309,25 @@ $.ajax({
     })
 </script>
 ```
+
+json을 이용
+```html
+<p id="timezones"></p>
+<input type="button" id="execute" value="execute" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('#execute').click(function(){
+        $.ajax({
+            url:'./time3.php',
+            dataType:'json', // type을 지정
+            success:function(data){ // data는 JSON.parse()의 결과와 동일한 객체가 넘어오게 된다.
+                var str = '';
+                for(var name in data){
+                    str += '<li>'+data[name]+'</li>';
+                }
+                $('#timezones').html('<ul>'+str+'</ul>');
+            }
+        })
+    })
+</script>
+```
